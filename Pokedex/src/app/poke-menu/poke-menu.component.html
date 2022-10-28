@@ -1,0 +1,3 @@
+<div *ngFor="let element of pokeList; let i = index">
+    <a mat-stroked-button class="navBtn" routerLink="../info" (click)="selectPoke(i)">{{element.name}}</a>
+</div>

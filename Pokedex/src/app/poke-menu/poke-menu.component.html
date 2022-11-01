@@ -1,3 +1,46 @@
-<div *ngFor="let element of pokeList; let i = index">
-    <a mat-stroked-button class="navBtn" routerLink="../info" (click)="selectPoke(i)">{{element.name}}</a>
-</div>
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="openSideNav=!openSideNav">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Pokedex</span>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav mode="side" [opened]="openSideNav">
+
+    </mat-sidenav>
+    
+    <mat-sidenav-content>
+        <div class="row">
+            <div class="col-2">
+                <button mat-stroked-button (click)="removeOdds()">Click Me!</button>
+            </div>
+            <div class="col-2">
+                <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>Item 1</button>
+                    <button mat-menu-item>Item 2</button>
+                </mat-menu>
+
+            </div>
+        </div>
+        
+        <div class="row">
+            <div *ngFor="let element of displayPoke; let i = index" class="col-xl-2 col-lg-3 col-md-4 col-sm-12">
+                <div class="navCard">
+                    <a class="navBtn" routerLink="../info" (click)="selectPoke(i)">
+                        <mat-card class="card">
+                            <mat-card-title align="center">{{element.name}}</mat-card-title>
+                            <div *ngIf="element.sprites != null" align="center">
+                                <img [src]="element.sprites.front_default" width="100" height="100">
+                            </div>
+                        </mat-card>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+

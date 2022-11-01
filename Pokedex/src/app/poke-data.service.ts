@@ -12,31 +12,24 @@ export class PokeDataService {
   pokeList: any[] = [];
   currentPoke: number = 0;
 
-  evList: any[] = [];
+  loadAmount: number = 100;
 
   constructor(private http: HttpClient){
-    for (let i = 0; i < 99; i ++){
+    for (let i = 0; i < this.loadAmount-1; i ++){
       this.pokeList.push({});
-      this.evList.push({});
     }
-    for (let i = 1; i < 100; i ++){
+    for (let i = 1; i <= this.loadAmount; i ++){
       this.http.get('https://pokeapi.co/api/v2/pokemon/' + i).subscribe(data => {
         this.addToPokeList(data);
-        //this.pokeList[data.id] = data;
       });
-      //this.http.get('https://pokeapi.co/api/v2/evolution-chain/' + i).subscribe(data => this.addToEvList(data));
     }
     
   }
 
   addToPokeList(gotData:any){
-    //this.pokeList.push(gotData);
-    this.pokeList[gotData.id] = gotData;
+    this.pokeList[gotData.id-1] = gotData;
   }
 
-  addToEvList(gotData:any){
-    this.evList[gotData.id] = gotData;
-  }
 
   setPokemon(index: number){
     this.currentPoke = index;

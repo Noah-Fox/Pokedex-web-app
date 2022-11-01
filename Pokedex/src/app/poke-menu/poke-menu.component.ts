@@ -10,11 +10,13 @@ import { PokeDataService } from '../poke-data.service';
 export class PokeMenuComponent implements OnInit {
 
   pokeList: any[] = [];
-  evList: any[] = [];
+  displayPoke: any[] = [];
+
+  openSideNav = false;
 
   constructor (private PokeService: PokeDataService){
     this.pokeList = PokeService.pokeList;
-    this.evList = PokeService.evList;
+    this.displayPoke = this.pokeList;
   }
 
   ngOnInit(): void {
@@ -22,7 +24,14 @@ export class PokeMenuComponent implements OnInit {
 
   selectPoke(val: number){
     this.PokeService.setPokemon(val);
-    console.log(this.pokeList[val]);
+  }
+
+  removeOdds(): void{
+    for (let i = this.displayPoke.length-1; i >= 0; i --){
+      if (i%2 == 0){
+        this.displayPoke.splice(i,1);
+      }
+    }
   }
 
 }

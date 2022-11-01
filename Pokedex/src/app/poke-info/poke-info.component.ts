@@ -10,12 +10,10 @@ import { PokeDataService } from '../poke-data.service';
 export class PokeInfoComponent implements OnInit {
 
   displayPokemon: any;
-  evList:any[] = [];
 
 
   constructor(private PokeService: PokeDataService) { 
     this.displayPokemon = PokeService.pokeList[PokeService.currentPoke];
-    this.evList = PokeService.evList;
   }
 
   ngOnInit(): void {

@@ -19,12 +19,14 @@ import { PokeDataService } from './poke-data.service';
 import { PokeMenuComponent } from './poke-menu/poke-menu.component';
 import { PokeInfoComponent } from './poke-info/poke-info.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CheckboxDialogComponent } from './poke-menu/checkbox-dialog/checkbox-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokeMenuComponent,
-    PokeInfoComponent
+    PokeInfoComponent,
+    CheckboxDialogComponent
   ],
   imports: [
     BrowserModule,

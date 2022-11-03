@@ -29,9 +29,15 @@ export class PokeMenuComponent implements OnInit {
     this.PokeService.setPokemon(val);
   }
 
-  setSortIncreasing(): void{
-    this.sortIncreasing = !this.sortIncreasing;
-    this.orderBy(this.sortingBy);
+  setSortIncreasing(selection: string): void{
+    if (selection == '0' && this.sortIncreasing){
+      this.sortIncreasing = false;
+      this.orderBy(this.sortingBy);
+    }
+    else if (selection == '1' && !this.sortIncreasing){
+      this.sortIncreasing = true;
+      this.orderBy(this.sortingBy);
+    }
   }
 
   removeOdds(): void{

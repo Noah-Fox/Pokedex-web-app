@@ -2,7 +2,7 @@
     <div mat-dialog-content>
         
         <div *ngFor="let element of data.typesList">
-            <mat-checkbox formControlName="element">{{element}}</mat-checkbox>
+            <mat-checkbox formControlName="{{element}}">{{element}}</mat-checkbox>
         </div>
 
         <!--<mat-checkbox formControlName="normal">normal</mat-checkbox>

@@ -13,6 +13,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatRadioModule} from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 
 import { PokeDataService } from './poke-data.service';
@@ -40,6 +45,12 @@ import { CheckboxDialogComponent } from './poke-menu/checkbox-dialog/checkbox-di
     MatSidenavModule,
     MatMenuModule,
     MatRadioModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule,
   ],
   providers: [PokeDataService],
   bootstrap: [AppComponent]

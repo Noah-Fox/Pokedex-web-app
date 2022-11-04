@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-checkbox-dialog',
@@ -7,7 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckboxDialogComponent implements OnInit {
 
-  constructor() { }
+  checkForm = this.fb.group({
+    type1: [true],
+    type2: [false],
+    type3: [false],
+  });
+
+  testForm = this.fb.group({
+    name: [""],
+    description: [""],
+    isTall: [true],
+  })
+
+  constructor(
+    private fb: FormBuilder,
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      typesForm: FormGroup,
+      typesList: string[]
+    },
+  ) {
+    this.checkForm = this.data.typesForm;
+  }
 
   ngOnInit(): void {
   }

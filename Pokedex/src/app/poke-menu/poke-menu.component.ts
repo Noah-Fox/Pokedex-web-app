@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { FormBuilder } from '@angular/forms';
 
 import { PokeDataService } from '../poke-data.service';
+import { CheckboxDialogComponent } from './checkbox-dialog/checkbox-dialog.component';
 
 @Component({
   selector: 'app-poke-menu',
   templateUrl: './poke-menu.component.html',
   styleUrls: ['./poke-menu.component.css']
 })
-export class PokeMenuComponent implements OnInit {
+export class PokeMenuComponent implements OnInit, OnDestroy {
 
   pokeList: any[] = [];
   displayPoke: any[] = [];
@@ -17,12 +22,64 @@ export class PokeMenuComponent implements OnInit {
   sortIncreasing: boolean = true;
   sortingBy: string = "id";
 
-  constructor (private PokeService: PokeDataService){
+  typesForm = this.fb.group({
+    normal: [true],
+    fire: [true],
+    water: [true],
+    grass: [true],
+    flying: [true],
+    fighting: [true],
+    poison: [true],
+    electric: [true],
+    ground: [true],
+    rock: [true],
+    psychic: [true],
+    ice: [true],
+    bug: [true],
+    ghost: [true],
+    steel: [true],
+    dragon: [true],
+    dark: [true],
+    fairy: [true],
+  });
+
+  typesList: string[] = [
+    'normal',
+    'fire',
+    'water',
+    'grass',
+    'flying',
+    'fighting',
+    'poison',
+    'electric',
+    'ground',
+    'rock',
+    'psychic',
+    'ice',
+    'bug',
+    'ghost',
+    'steel',
+    'dragon',
+    'dark',
+    'fairy'
+  ];
+
+  private subscriptor = new Subscription();
+
+  constructor (
+    private PokeService: PokeDataService,
+    private dialog: MatDialog,
+    private fb: FormBuilder,
+    ){
     this.pokeList = PokeService.pokeList;
     this.displayPoke = this.pokeList;
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void{
+    this.subscriptor.unsubscribe();
   }
 
   selectPoke(val: number){
@@ -66,6 +123,14 @@ export class PokeMenuComponent implements OnInit {
         }
       }
     }
+  }
+
+  openCheckboxDialog(): void{
+    const checkboxDialogRef = this.dialog.open(
+      CheckboxDialogComponent,
+      {data: {typesForm: this.typesForm, typesList: this.typesList}}
+    );
+    checkboxDialogRef.afterClosed().subscribe(() => console.log("closed dialog"));
   }
 
 }

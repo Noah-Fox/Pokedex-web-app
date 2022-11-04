@@ -19,8 +19,8 @@
                 <button mat-button [matMenuTriggerFor]="orderMenu">Sort by {{sortingBy}}</button>
                 <mat-menu #orderMenu="matMenu">
                     <mat-radio-group aria-label="Select an option" (change)="setSortIncreasing($event.value)">
-                        <mat-radio-button value="0" class="mx-1">High to Low</mat-radio-button>
                         <mat-radio-button value="1" class="mx-1">Low to High</mat-radio-button>
+                        <mat-radio-button value="0" class="mx-1">High to Low</mat-radio-button>
                     </mat-radio-group>
                     <button mat-menu-item (click)="this.orderBy('id')">ID</button>
                     <button mat-menu-item (click)="this.orderBy('name')">Name</button>
@@ -32,8 +32,8 @@
             <div class="col-2">
                 <button mat-button [matMenuTriggerFor]="filterMenu">Filter</button>
                 <mat-menu #filterMenu="matMenu">
-                    <button mat-menu-item>Type</button>
-                    <button mat-menu-item>Stats</button>
+                    <button mat-menu-item (click)="openCheckboxDialog()">Type</button>
+                    <button mat-menu-item>Traits</button>
                     <button mat-menu-item>Location</button>
                 </mat-menu>
             </div>

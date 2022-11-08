@@ -13,10 +13,7 @@
     <mat-sidenav-content>
         <div class="row">
             <div class="col-2">
-                <button mat-stroked-button (click)="removeOdds()">Click Me!</button>
-            </div>
-            <div class="col-2">
-                <button mat-button [matMenuTriggerFor]="orderMenu">Sort by {{sortingBy}}</button>
+                <button mat-button [matMenuTriggerFor]="orderMenu">Sort by {{sortingByValue()}}</button>
                 <mat-menu #orderMenu="matMenu">
                     <mat-radio-group aria-label="Select an option" (change)="setSortIncreasing($event.value)">
                         <mat-radio-button value="1" class="mx-1">Low to High</mat-radio-button>
@@ -26,6 +23,7 @@
                     <button mat-menu-item (click)="this.orderBy('name')">Name</button>
                     <button mat-menu-item (click)="this.orderBy('height')">Height</button>
                     <button mat-menu-item (click)="this.orderBy('weight')">Weight</button>
+                    <button mat-menu-item (click)="this.orderBy('base_experience')">Base Experience</button>
                 </mat-menu>
 
             </div>

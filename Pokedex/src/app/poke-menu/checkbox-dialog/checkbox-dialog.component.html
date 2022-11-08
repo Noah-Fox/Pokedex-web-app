@@ -1,17 +1,14 @@
 <form [formGroup]="checkForm">
     <div mat-dialog-content>
-        
+        <button mat-stroked-button (click)="selectAll()">Select All</button>
+        <button mat-stroked-button (click)="unselectAll()">Unselect All</button>
         <div *ngFor="let element of data.typesList">
             <mat-checkbox formControlName="{{element}}">{{element}}</mat-checkbox>
         </div>
-
-        <!--<mat-checkbox formControlName="normal">normal</mat-checkbox>
-        <mat-checkbox formControlName="fire">fire</mat-checkbox>
-        <mat-checkbox formControlName="water">water</mat-checkbox>-->
     </div>
 
     <div mat-dialog-actions align="end" class="mt-4">
-        <button mat-stroked-button mat-dialog-close>Cancel</button>
-        <button mat-flat-button color="primary">Create</button>
+        <button mat-stroked-button (click)="onCancel()">Cancel</button>
+        <button mat-flat-button color="primary" (click)="onSubmit()">Submit</button>
     </div>
 </form>

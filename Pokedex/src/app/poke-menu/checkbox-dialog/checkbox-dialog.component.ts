@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
@@ -23,6 +23,7 @@ export class CheckboxDialogComponent implements OnInit {
   })
 
   constructor(
+    private dialogRef: MatDialogRef<CheckboxDialogComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA)
     public data: {
@@ -34,6 +35,28 @@ export class CheckboxDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(): void{
+    this.dialogRef.close(this.checkForm);
+  }
+
+  onCancel(): void{
+    this.dialogRef.close(this.data.typesForm);
+  }
+
+  selectAll(): void{
+    for (let i = 0; i < this.data.typesList.length; i ++){
+      let setType = this.data.typesList[i] as keyof typeof this.checkForm.value;
+      this.checkForm.setControl(setType,new FormControl(true));
+    }
+  }
+
+  unselectAll(): void{
+    for (let i = 0; i < this.data.typesList.length; i ++){
+      let setType = this.data.typesList[i] as keyof typeof this.checkForm.value;
+      this.checkForm.setControl(setType,new FormControl(false));
+    }
   }
 
 }

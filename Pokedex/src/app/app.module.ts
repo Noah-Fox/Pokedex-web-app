@@ -25,13 +25,15 @@ import { PokeMenuComponent } from './poke-menu/poke-menu.component';
 import { PokeInfoComponent } from './poke-info/poke-info.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CheckboxDialogComponent } from './poke-menu/checkbox-dialog/checkbox-dialog.component';
+import { ValueDialogComponent } from './poke-menu/value-dialog/value-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokeMenuComponent,
     PokeInfoComponent,
-    CheckboxDialogComponent
+    CheckboxDialogComponent,
+    ValueDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { PokeDataService } from '../poke-data.service';
 import { CheckboxDialogComponent } from './checkbox-dialog/checkbox-dialog.component';
+import { ValueDialogComponent } from './value-dialog/value-dialog.component';
 
 @Component({
   selector: 'app-poke-menu',
@@ -62,6 +63,7 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
   //Called when a pokemon is selected
   selectPoke(val: number){
     this.PokeService.setPokemon(this.displayPoke[val].id-1);
+    //console.log(this.displayPoke[val]);
   }
 
   //called when low-to-high or high-to-low radio button is selected in Sort By menu
@@ -107,6 +109,10 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
       this.PokeService.typesForm = data;
       this.filterList();
     });
+  }
+
+  openTraitsDialog(): void{
+    
   }
 
   //filters list by criteria in filter menu forms

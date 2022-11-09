@@ -1,0 +1,12 @@
+<form [formGroup]="valuesForm">
+    <div mat-dialog-content>
+        <div *ngFor="let element of valuesList">
+            <input matInput formControlName="{{element}}">
+        </div>
+    </div>
+
+    <div mat-dialog-actions align="end" class="mt-4">
+        <button mat-stroked-button (click)="onCancel()">Cancel</button>
+        <button mat-flat-button color="primary" (click)="onSubmit()">Submit</button>
+    </div>
+</form>

@@ -1,7 +1,13 @@
 <form [formGroup]="valuesForm">
     <div mat-dialog-content>
         <div *ngFor="let element of valuesList">
-            <input matInput formControlName="{{element}}">
+            <div class="row">
+                <div class="col-4">{{element}}</div>
+                <div class="col-2"></div>
+                <div class="col-4">
+                    <input matInput formControlName="{{element}}">
+                </div>
+            </div>            
         </div>
     </div>
 

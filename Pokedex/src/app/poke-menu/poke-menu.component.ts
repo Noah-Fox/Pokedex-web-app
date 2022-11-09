@@ -111,8 +111,18 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
     });
   }
 
+  //called when traits option in filter menu is selected
   openTraitsDialog(): void{
-    
+    const valueDialogRef = this.dialog.open(
+      ValueDialogComponent,
+      {data: {
+        valuesForm: this.fb.group({name: [""], data: [""]}),
+        valuesList: ["name","data"]
+      }}
+    );
+    valueDialogRef.afterClosed().subscribe((data: FormGroup) => {
+      console.log("closed");
+    })
   }
 
   //filters list by criteria in filter menu forms

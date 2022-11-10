@@ -63,7 +63,13 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
   //Called when a pokemon is selected
   selectPoke(val: number){
     this.PokeService.setPokemon(this.displayPoke[val].id-1);
-    //console.log(this.displayPoke[val]);
+    console.log(this.displayPoke[val].stats);
+    console.log(this.displayPoke[val].stats[0].base_stat);
+    /*for (let i = 0; i < this.pokeList.length; i ++){
+      if (this.pokeList[i].stats.length != 6){
+        console.log(this.pokeList[i]);
+      }
+    }*/
   }
 
   //called when low-to-high or high-to-low radio button is selected in Sort By menu
@@ -116,12 +122,26 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
     const valueDialogRef = this.dialog.open(
       ValueDialogComponent,
       {data: {
-        valuesForm: this.fb.group({name_min: [""], name_max: [""], data_min: [""], data_max: [""]}),
-        valuesList: ["name","data"]
+        valuesForm: this.PokeService.traitsForm,
+        valuesList: this.PokeService.traitsList,
       }}
     );
     valueDialogRef.afterClosed().subscribe((data: FormGroup) => {
-      console.log(data.value.name_min);
+      this.filterList();
+    })
+  }
+
+  //called when stats option in filter menu is selected
+  openStatsDialog(): void{
+    const valueDialogRef = this.dialog.open(
+      ValueDialogComponent,
+      {data: {
+        valuesForm: this.PokeService.statsForm,
+        valuesList: this.PokeService.statsList,
+      }}
+    );
+    valueDialogRef.afterClosed().subscribe((data: FormGroup) => {
+      this.PokeService.filterList();
     })
   }
 

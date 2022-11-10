@@ -47,15 +47,13 @@ export class CheckboxDialogComponent implements OnInit {
 
   selectAll(): void{
     for (let i = 0; i < this.data.typesList.length; i ++){
-      let setType = this.data.typesList[i] as keyof typeof this.checkForm.value;
-      this.checkForm.setControl(setType,new FormControl(true));
+      this.checkForm.get(this.data.typesList[i])?.setValue(true);
     }
   }
 
   unselectAll(): void{
     for (let i = 0; i < this.data.typesList.length; i ++){
-      let setType = this.data.typesList[i] as keyof typeof this.checkForm.value;
-      this.checkForm.setControl(setType,new FormControl(false));
+      this.checkForm.get(this.data.typesList[i])?.setValue(false);
     }
   }
 

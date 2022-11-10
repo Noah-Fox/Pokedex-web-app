@@ -37,4 +37,14 @@ export class ValueDialogComponent implements OnInit {
     this.dialogRef.close(this.valuesForm);
   }
 
+  toggleDisabled(controlName: string): void{
+    if (!this.valuesForm.get(controlName + "_use")?.value){
+      this.valuesForm.get(controlName + "_min")?.enable();
+      this.valuesForm.get(controlName + "_max")?.enable();
+    }
+    else{
+      this.valuesForm.get(controlName + "_min")?.disable();
+      this.valuesForm.get(controlName + "_max")?.disable();
+    }
+  }
 }

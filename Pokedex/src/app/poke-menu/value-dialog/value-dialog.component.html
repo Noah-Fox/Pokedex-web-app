@@ -2,11 +2,16 @@
     <div mat-dialog-content>
         <div *ngFor="let element of valuesList">
             <div class="row">
-                <mat-form-field appearance="standard" class="col-6">
+                <div class="col-4 pt-3">
+                    <mat-checkbox formControlName="{{element}}_use" (click)="toggleDisabled(element)">
+                        Filter {{element}}
+                    </mat-checkbox>
+                </div>
+                <mat-form-field appearance="standard" class="col-4">
                     <mat-label>{{element}} min</mat-label>
                     <input matInput formControlName="{{element}}_min">
                 </mat-form-field>
-                <mat-form-field appearance="standard" class="col-6">
+                <mat-form-field appearance="standard" class="col-4">
                     <mat-label>{{element}} max</mat-label>
                     <input matInput formControlName="{{element}}_max">
                 </mat-form-field>

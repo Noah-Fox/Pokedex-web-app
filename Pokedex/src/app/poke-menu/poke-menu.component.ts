@@ -20,6 +20,8 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
 
   openSideNav = false;
 
+  //imageSource = ["sprites","versions","generation-v","black-white","animated","front_default"];
+  imageSource = ["sprites","front_default"];
 
   typesList: string[] = [
     'normal',
@@ -63,10 +65,14 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
   //Called when a pokemon is selected
   selectPoke(val: number){
     this.PokeService.setPokemon(this.displayPoke[val].id-1);
+    console.log(this.displayPoke[val].sprites);
   }
 
   //recursively accesses a value in an object using an array of value strings
   accessValue(object:any, values:string[], valueOn:number = 0):any{
+    if (object == null){
+      return null;
+    }
     if (valueOn >= values.length){
       return object;
     }

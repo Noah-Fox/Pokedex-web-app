@@ -1,10 +1,21 @@
 <div *ngIf="displayPokemon.name != null">
-    <p>{{displayPokemon.name}}</p>
-    <img [src]="displayPokemon.sprites.front_default" width="100" height="100">
-    <p>Weight: {{displayPokemon.weight}}</p>
-    <p>Height: {{displayPokemon.height}}</p>
-    <p>Types:</p>
-    <p *ngFor="let i of displayPokemon.types">{{'\t'+i.type.name}}</p>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <mat-card>
+                <mat-card-title>{{displayPokemon.name}}</mat-card-title>
+                <mat-card-content>
+                    <img [src]="displayPokemon.sprites.front_default" width="100" height="100">
+                    <p>Weight: {{displayPokemon.weight}}</p>
+                    <p>Height: {{displayPokemon.height}}</p>
+                    <p>Types:</p>
+                    <p *ngFor="let i of displayPokemon.types">{{'\t'+i.type.name}}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    
 </div>
 
 <a mat-stroked-button class="navBtn" routerLink="../menu">Home</a>

@@ -116,12 +116,12 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
     const valueDialogRef = this.dialog.open(
       ValueDialogComponent,
       {data: {
-        valuesForm: this.fb.group({name: [""], data: [""]}),
+        valuesForm: this.fb.group({name_min: [""], name_max: [""], data_min: [""], data_max: [""]}),
         valuesList: ["name","data"]
       }}
     );
     valueDialogRef.afterClosed().subscribe((data: FormGroup) => {
-      console.log("closed");
+      console.log(data.value.name_min);
     })
   }
 

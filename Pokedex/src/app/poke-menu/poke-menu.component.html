@@ -19,11 +19,20 @@
                         <mat-radio-button value="1" class="mx-1">Low to High</mat-radio-button>
                         <mat-radio-button value="0" class="mx-1">High to Low</mat-radio-button>
                     </mat-radio-group>
-                    <button mat-menu-item (click)="this.orderBy('id')">ID</button>
-                    <button mat-menu-item (click)="this.orderBy('name')">Name</button>
-                    <button mat-menu-item (click)="this.orderBy('height')">Height</button>
-                    <button mat-menu-item (click)="this.orderBy('weight')">Weight</button>
-                    <button mat-menu-item (click)="this.orderBy('base_experience')">Base Experience</button>
+                    <button mat-menu-item (click)="this.orderBy(['id'])">ID</button>
+                    <button mat-menu-item (click)="this.orderBy(['name'])">Name</button>
+                    <button mat-menu-item (click)="this.orderBy(['height'])">Height</button>
+                    <button mat-menu-item (click)="this.orderBy(['weight'])">Weight</button>
+                    <button mat-menu-item (click)="this.orderBy(['base_experience'])">Base Experience</button>
+                    <button mat-menu-item [matMenuTriggerFor]="stats">Stats</button>
+                </mat-menu>
+                <mat-menu #stats="matMenu">
+                    <button mat-menu-item (click)="this.orderBy(['stats','0','base_stat'])">HP</button>
+                    <button mat-menu-item (click)="this.orderBy(['stats','1','base_stat'])">Attack</button>
+                    <button mat-menu-item (click)="this.orderBy(['stats','2','base_stat'])">Defense</button>
+                    <button mat-menu-item (click)="this.orderBy(['stats','3','base_stat'])">Special-Attack</button>
+                    <button mat-menu-item (click)="this.orderBy(['stats','4','base_stat'])">Special-Defense</button>
+                    <button mat-menu-item (click)="this.orderBy(['stats','5','base_stat'])">Speed</button>
                 </mat-menu>
 
             </div>

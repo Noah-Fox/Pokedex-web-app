@@ -63,13 +63,14 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
   //Called when a pokemon is selected
   selectPoke(val: number){
     this.PokeService.setPokemon(this.displayPoke[val].id-1);
-    console.log(this.displayPoke[val].stats);
-    console.log(this.displayPoke[val].stats[0].base_stat);
-    /*for (let i = 0; i < this.pokeList.length; i ++){
-      if (this.pokeList[i].stats.length != 6){
-        console.log(this.pokeList[i]);
-      }
-    }*/
+  }
+
+  //recursively accesses a value in an object using an array of value strings
+  accessValue(object:any, values:string[], valueOn:number = 0):any{
+    if (valueOn >= values.length){
+      return object;
+    }
+    return this.accessValue(object[values[valueOn]],values,valueOn+1);
   }
 
   //called when low-to-high or high-to-low radio button is selected in Sort By menu
@@ -85,11 +86,11 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
   }
 
   //Changes order of displayPoke
-  orderBy(attr:string): void{
+  orderBy(attr:string[]): void{
     this.PokeService.sortingBy = attr;
-    let sortElements = (e1:any,e2:any) => e1[attr] > e2[attr];
+    let sortElements = (e1:any,e2:any) => this.accessValue(e1,attr) > this.accessValue(e2,attr);
     if (!this.PokeService.sortIncreasing){
-      sortElements = (e1:any,e2:any) => e1[attr] < e2[attr];
+      sortElements = (e1:any,e2:any) => this.accessValue(e1,attr) < this.accessValue(e2,attr);
     }
     let checking = true;
     while (checking){
@@ -141,7 +142,7 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
       }}
     );
     valueDialogRef.afterClosed().subscribe((data: FormGroup) => {
-      this.PokeService.filterList();
+      this.filterList();
     })
   }
 
@@ -154,7 +155,7 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
 
   //Called in HTML to access value of sortingBy
   sortingByValue():string{
-    return this.PokeService.sortingBy;
+    return this.PokeService.sortingBy[this.PokeService.sortingBy.length-1];
   }
 
 }

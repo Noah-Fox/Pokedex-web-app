@@ -15,11 +15,11 @@ export class PokeDataService {
   displayPoke: any[] = [];
 
   sortIncreasing: boolean = true;
-  sortingBy: string = "id";
+  sortingBy: string[] = ["id"];
 
   currentPoke: number = 0;
 
-  loadAmount: number = 200;
+  loadAmount: number = 400;
 
   typesForm = this.fb.group({
     normal: [true],
@@ -174,8 +174,8 @@ export class PokeDataService {
         //if formControl is enabled and stat falls in range
         if (
           this.statsForm.get(this.statsList[x] + "_use")?.value
-          && (this.displayPoke[i][x].base_stat < this.statsForm.get(this.statsList[x] + "_min")?.value
-          || this.displayPoke[i][x].base_stat >= this.statsForm.get(this.statsList[x] + "_max")?.value)
+          && (this.displayPoke[i].stats[x].base_stat < this.statsForm.get(this.statsList[x] + "_min")?.value
+          || this.displayPoke[i].stats[x].base_stat >= this.statsForm.get(this.statsList[x] + "_max")?.value)
           ){
             inStatsRanges = false;
           }

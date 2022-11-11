@@ -15,5 +15,11 @@ mat-sidenav {
     width: 15rem;
 }
 
+.PokeCardTitle{
+    text-decoration: none;
+}
 
+.navBtn{
+    text-decoration: none;
+}
 

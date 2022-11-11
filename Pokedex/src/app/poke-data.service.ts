@@ -109,6 +109,10 @@ export class PokeDataService {
         this.addToPokeList(data);
       });
     }
+
+    this.http.get('https://pokeapi.co/api/v2/evolution-chain/1/').subscribe(data => {
+      console.log(data);
+    })
     
     for (let i = 0; i < this.traitsList.length; i ++){
       this.traitsForm.get(this.traitsList[i] + "_min")?.disable();

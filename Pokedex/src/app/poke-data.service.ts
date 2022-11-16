@@ -14,12 +14,16 @@ export class PokeDataService {
   pokeList: any[] = [];
   displayPoke: any[] = [];
 
+  evolutionList: any[] = [];
+
   sortIncreasing: boolean = true;
   sortingBy: string[] = ["id"];
 
   currentPoke: number = 0;
+  currentEvolutions: any[] = [];//stores {name, id}
 
   loadAmount: number = 400;
+  loadEvolution: number = 209;
 
   typesForm = this.fb.group({
     normal: [true],
@@ -110,9 +114,15 @@ export class PokeDataService {
       });
     }
 
-    this.http.get('https://pokeapi.co/api/v2/evolution-chain/1/').subscribe(data => {
+    for (let i = 1; i <= this.loadEvolution; i ++){
+      this.http.get('https://pokeapi.co/api/v2/evolution-chain/' + i).subscribe(data => {
+        this.addToEvolutionList(data);
+      })
+    }
+
+    /*this.http.get('https://pokeapi.co/api/v2/evolution-chain/1/').subscribe(data => {
       console.log(data);
-    })
+    })*/
     
     for (let i = 0; i < this.traitsList.length; i ++){
       this.traitsForm.get(this.traitsList[i] + "_min")?.disable();
@@ -133,9 +143,91 @@ export class PokeDataService {
     this.displayPoke[gotData.id-1] = gotData;
   }
 
+  addToEvolutionList(gotData:any){
+    this.evolutionList[gotData.id-1] = gotData;
+  }
+
 
   setPokemon(index: number){
     this.currentPoke = index;
+
+    //get list of names and id's of every pokemon current pokemon evolves to
+    this.currentEvolutions = [];
+    //search through evolutionList for current pokemon
+    for (let i = 0; i < this.evolutionList.length; i ++){
+      //if the current pokemon is a baby and in current element, get evolutions and return
+      if (this.evolutionList[i].chain.species.name == this.pokeList[index].name){
+        for (let x = 0; x < this.evolutionList[i].chain.evolves_to.length; x ++){
+          let gotId = this.getLinkId(this.evolutionList[i].chain.evolves_to[x].species.url);
+          if (gotId < this.loadAmount){
+            this.currentEvolutions.push({
+              name: this.evolutionList[i].chain.evolves_to[x].species.name,
+              id: gotId,
+            });
+          }
+        }
+        return;
+      }
+      let gotEvolutions = this.searchEvolutions(this.pokeList[index].name,this.evolutionList[i].chain.evolves_to);
+      if (gotEvolutions.length > 0){
+        this.currentEvolutions = gotEvolutions;
+        return;
+      }
+    }
+    
+  }
+
+  //give name of pokemon and evolutionList[i].chain.evolves_to
+  searchEvolutions(searchName: string, evolves_to: any[]): any[]{
+    if (evolves_to.length == 0){
+      return [];
+    }
+    for (let i = 0; i < evolves_to.length; i ++){
+      //check if pokemon is one that gets evolved to
+      if (evolves_to[i].species.name == searchName){
+        let gotEvolutions = [];
+        for (let x = 0; x < evolves_to[i].evolves_to.length; x ++){
+          let gotId = this.getLinkId(evolves_to[i].evolves_to[x].species.url);
+          if (gotId < this.loadAmount){
+            gotEvolutions.push({
+              name: evolves_to[i].evolves_to[x].species.name,
+              id: gotId,
+            });
+          }
+        }
+        return gotEvolutions;
+      }
+      //recurse to each of the next levels of evolution
+      let gotEvolutions = [];
+      for (let x = 0; x < evolves_to[i].evolves_to.length; x ++){
+        gotEvolutions = this.searchEvolutions(searchName,evolves_to[i].evolves_to[x]);
+        if (gotEvolutions.length != 0){
+          return gotEvolutions;
+        }
+      }
+    }
+
+    return [];
+  }
+
+  getLinkId(link: string):number{
+    let end = link.length;
+    if (link[link.length-1] == "/"){
+      end --;
+    }
+    let lastSlash = 0;
+    for (let i = 0; i < end; i ++){
+      if (link[i] == "/"){
+        lastSlash = i;
+      }
+    }
+
+    let value = 0;
+    for (let i = lastSlash+1; i < end; i ++){
+      value = value*10 + +link[i];
+    }
+    
+    return value;
   }
 
   filterList(){

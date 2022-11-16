@@ -23,3 +23,7 @@ mat-sidenav {
     text-decoration: none;
 }
 
+.toolbarRow{
+    width: 100%;
+}
+

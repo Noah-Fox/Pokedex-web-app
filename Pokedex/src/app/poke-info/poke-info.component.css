@@ -1,0 +1,15 @@
+.evBtn{
+    background-color: lightgray;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+p{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

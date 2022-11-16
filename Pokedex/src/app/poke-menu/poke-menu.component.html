@@ -3,10 +3,10 @@
         <mat-icon>menu</mat-icon>
     </button>-->
     
-    <div class="row toolbardRow">
-        <div class="col-4">Pokedex</div>
-        <div class="col-4">
-            <button mat-button [matMenuTriggerFor]="orderMenu">Sort by {{sortingByValue()}}</button>
+    <div class="row toolbarRow">
+        <div class="col-2">Pokedex</div>
+        <div class="col-3">
+            <button mat-button [matMenuTriggerFor]="orderMenu">Sort by {{capFirst(sortingByValue())}}</button>
             <mat-menu #orderMenu="matMenu">
                 <mat-radio-group aria-label="Select an option" (change)="setSortIncreasing($event.value)">
                     <mat-radio-button value="1" class="mx-1">Low to High</mat-radio-button>
@@ -29,13 +29,20 @@
             </mat-menu>
 
         </div>
-        <div class="col-4">
+        <div class="col-3">
             <button mat-button [matMenuTriggerFor]="filterMenu">Filter</button>
             <mat-menu #filterMenu="matMenu">
                 <button mat-menu-item (click)="openCheckboxDialog()">Type</button>
                 <button mat-menu-item (click)="openTraitsDialog()">Traits</button>
                 <button mat-menu-item (click)="openStatsDialog()">Stats</button>
             </mat-menu>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-1">
+            <button mat-icon-button (click)="toggleDance()"
+                #tooltip="matTooltip" matTooltip="Dance!" matTooltipPosition="below">
+                <mat-icon>slideshow</mat-icon>
+            </button>
         </div>
     </div>
 </mat-toolbar>
@@ -45,7 +52,7 @@
         <div class="navCard">
             <a class="navBtn" routerLink="../info" (click)="selectPoke(i)">
                 <mat-card class="card">
-                    <mat-card-title align="center">{{element.name}}</mat-card-title>
+                    <mat-card-title align="center">{{capFirst(element.name,false)}}</mat-card-title>
                     <div *ngIf="element.sprites != null" align="center">
                         <div *ngIf="accessValue(element,imageSource)!=null">
                             <img [src]="accessValue(element,imageSource)" width="100" height="100">

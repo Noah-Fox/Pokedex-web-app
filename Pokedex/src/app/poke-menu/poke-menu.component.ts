@@ -22,6 +22,7 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
 
   //imageSource = ["sprites","versions","generation-v","black-white","animated","front_default"];
   imageSource = ["sprites","front_default"];
+  isDancing = false;
 
   typesList: string[] = [
     'normal',
@@ -65,7 +66,6 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
   //Called when a pokemon is selected
   selectPoke(val: number){
     this.PokeService.setPokemon(this.displayPoke[val].id-1);
-    console.log(this.displayPoke[val].sprites);
   }
 
   //recursively accesses a value in an object using an array of value strings
@@ -162,6 +162,31 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
   //Called in HTML to access value of sortingBy
   sortingByValue():string{
     return this.PokeService.sortingBy[this.PokeService.sortingBy.length-1];
+  }
+
+  toggleDance(){
+    if (this.isDancing){
+      this.imageSource = ["sprites","front_default"];
+      this.isDancing = false;
+    }
+    else{
+      this.imageSource = ["sprites","versions","generation-v","black-white","animated","front_default"];
+      this.isDancing = true;
+    }
+  }
+
+  capFirst(word:string, makeSpaces:boolean=true):string{
+    if (word == null){
+      return "";
+    }
+    if (makeSpaces){
+      for (let i = 0; i < word.length; i ++){
+        if (word[i] == "-" || word[i] == "_"){
+          word = word.slice(0,i) + " " + word.slice(i+1,word.length);
+        }
+      }
+    }
+    return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
 }

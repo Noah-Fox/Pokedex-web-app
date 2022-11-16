@@ -18,6 +18,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 import { PokeDataService } from './poke-data.service';
@@ -53,6 +54,7 @@ import { ValueDialogComponent } from './poke-menu/value-dialog/value-dialog.comp
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
+    MatTooltipModule,
   ],
   providers: [PokeDataService],
   bootstrap: [AppComponent]

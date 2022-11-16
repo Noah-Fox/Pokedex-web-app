@@ -1,27 +1,103 @@
-<a mat-stroked-button class="navBtn" routerLink="../menu">Home</a>
-<a mat-stroked-button class="mx-3" [disabled]="displayPokemon.name == null || displayPokemon.id == 1" (click)="changePoke(-1)">
-    Previous
-</a>
-<a mat-stroked-button [disabled]="displayPokemon.name == null || displayPokemon.id == maxNum" (click)="changePoke(1)">
-    Next
-</a>
+<div class="mt-2">
+    <a mat-stroked-button class="navBtn" routerLink="../menu">Home</a>
+    <a mat-stroked-button class="mx-3" [disabled]="displayPokemon.name == null || displayPokemon.id == 1" (click)="changePoke(-1)">
+        Previous
+    </a>
+    <a mat-stroked-button [disabled]="displayPokemon.name == null || displayPokemon.id == maxNum" (click)="changePoke(1)">
+        Next
+    </a>
+</div>
+
 
 <div *ngIf="displayPokemon.name != null">
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4">
+    <div class="row mt-3">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <mat-card>
-                <mat-card-title>{{displayPokemon.name}}</mat-card-title>
-                <mat-card-content>
-                    <img [src]="displayPokemon.sprites.front_default" width="100" height="100">
-                    <p>Weight: {{displayPokemon.weight}}</p>
-                    <p>Height: {{displayPokemon.height}}</p>
-                    <p>Types:</p>
-                    <p *ngFor="let i of displayPokemon.types">{{'\t'+i.type.name}}</p>
-                </mat-card-content>
+                <mat-card-title>
+                    {{capFirst(displayPokemon.name,false)}}
+                </mat-card-title>
+                <a (click)="flipImage()">
+                    <img [src]="displayPokemon.sprites[imageName]" width="100%" height="100%">
+                </a>
             </mat-card>
         </div>
-        <div class="col-4"></div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <mat-card>
+                <mat-card-title>Traits</mat-card-title>
+                <mat-card-content *ngIf="showTraits">
+                    <p>Id: {{displayPokemon.id}}</p>
+                    <p>Weight: {{displayPokemon.weight}}</p>
+                    <p>Height: {{displayPokemon.height}}</p>
+                    <p>Base Experience: {{displayPokemon.base_experience}}</p>
+                </mat-card-content>
+                <mat-card-actions align="end">
+                    <button mat-icon-button (click)="showTraits = !showTraits">
+                        <mat-icon *ngIf="!showTraits">keyboard_arrow_down</mat-icon>
+                        <mat-icon *ngIf="showTraits">keyboard_arrow_up</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+
+            <mat-card class="my-2">
+                <mat-card-title>Types</mat-card-title>
+                <mat-card-content *ngIf="showTypes">
+                    <p *ngFor="let i of displayPokemon.types">{{capFirst(i.type.name)}}</p>
+                </mat-card-content>
+                <mat-card-actions align="end">
+                    <button mat-icon-button (click)="showTypes = !showTypes">
+                        <mat-icon *ngIf="!showTypes">keyboard_arrow_down</mat-icon>
+                        <mat-icon *ngIf="showTypes">keyboard_arrow_up</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+
+            <mat-card class="my-2">
+                <mat-card-title>Stats</mat-card-title>
+                <mat-card-content *ngIf="showStats">
+                    <p *ngFor="let stat of statsList; let i = index">
+                        {{capFirst(stat)}}: {{displayPokemon.stats[i].base_stat}}
+                    </p>
+                </mat-card-content>
+                <mat-card-actions align="end">
+                    <button mat-icon-button (click)="showStats = !showStats">
+                        <mat-icon *ngIf="!showStats">keyboard_arrow_down</mat-icon>
+                        <mat-icon *ngIf="showStats">keyboard_arrow_up</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <mat-card>
+                <mat-card-title>Evolutions</mat-card-title>
+                <mat-card-content *ngIf="showEvolutions">
+                    <a class="row border evBtn" *ngFor="let i of evolutionsList" (click)="evolveTo(i.id)">
+                        <p class="col-8">{{capFirst(i.name,false)}}</p>
+                        <img [src]="pokeList[i.id-1].sprites.front_default" class="col-4" width="100%" height="100%">
+                    </a>
+                </mat-card-content>
+                <mat-card-actions align="end">
+                    <button mat-icon-button (click)="showEvolutions = !showEvolutions">
+                        <mat-icon *ngIf="!showEvolutions">keyboard_arrow_down</mat-icon>
+                        <mat-icon *ngIf="showEvolutions">keyboard_arrow_up</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+
+            <mat-card class="my-2">
+                <mat-card-title>Abilities</mat-card-title>
+                <mat-card-content *ngIf="showAbilities">
+                    <p *ngFor="let i of displayPokemon.abilities">
+                        {{capFirst(i.ability.name)}}
+                    </p>
+                </mat-card-content>
+                <mat-card-actions align="end">
+                    <button mat-icon-button (click)="showAbilities = !showAbilities">
+                        <mat-icon *ngIf="!showAbilities">keyboard_arrow_down</mat-icon>
+                        <mat-icon *ngIf="showAbilities">keyboard_arrow_up</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
     </div>
     
 </div>

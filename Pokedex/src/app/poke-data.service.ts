@@ -22,7 +22,7 @@ export class PokeDataService {
   currentPoke: number = 0;
   currentEvolutions: any[] = [];//stores {name, id}
 
-  loadAmount: number = 400;
+  loadAmount: number = 700;
   loadEvolution: number = 209;
 
   typesForm = this.fb.group({

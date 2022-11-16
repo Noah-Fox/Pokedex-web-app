@@ -20,7 +20,6 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
 
   openSideNav = false;
 
-  //imageSource = ["sprites","versions","generation-v","black-white","animated","front_default"];
   imageSource = ["sprites","front_default"];
   isDancing = false;
 
@@ -164,6 +163,7 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
     return this.PokeService.sortingBy[this.PokeService.sortingBy.length-1];
   }
 
+  //display the animated images on each card
   toggleDance(){
     if (this.isDancing){
       this.imageSource = ["sprites","front_default"];
@@ -175,6 +175,7 @@ export class PokeMenuComponent implements OnInit, OnDestroy {
     }
   }
 
+  //capitalize the first letter of a string. if makeSpaces, replace all dashes and underscores with spaces
   capFirst(word:string, makeSpaces:boolean=true):string{
     if (word == null){
       return "";

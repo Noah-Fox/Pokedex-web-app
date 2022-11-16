@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-import { PokeDataService } from './poke-data.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +8,4 @@ import { PokeDataService } from './poke-data.service';
 })
 export class AppComponent {
   title = 'Pokedex';
-
-  
 }
